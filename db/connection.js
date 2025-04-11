@@ -22,6 +22,7 @@ const end = async () => {
   await mongoose.disconnect();
   console.log("✅ MongoDB Disconnected");
 };
+connectDB();
 module.exports = {
   connectDB,
   mongoose,

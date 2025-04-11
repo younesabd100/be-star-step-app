@@ -52,9 +52,9 @@ const childSchema = new mongoose.Schema({
   parentID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Parent" }],
   avatar: String,
 });
-const Parent = mongoose.model("Parent", parentSchema);
-const Task = mongoose.model("Task", taskSchema);
-const Reward = mongoose.model("Reward", rewardSchema);
-const Child = mongoose.model("Child", childSchema);
+const Parents = mongoose.model("Parent", parentSchema);
+const Tasks = mongoose.model("Task", taskSchema);
+const Rewards = mongoose.model("Reward", rewardSchema);
+const Kids = mongoose.model("Child", childSchema);
 
-module.exports = { Parent, Task, Reward, Child };
+module.exports = { Parents, Tasks, Rewards, Kids };
