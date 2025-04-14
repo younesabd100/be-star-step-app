@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+// import { ObjectId } from "mongodb";
 const { v4: uuidv4 } = require("uuid");
 
 const parentSchema = new mongoose.Schema({
@@ -6,7 +7,7 @@ const parentSchema = new mongoose.Schema({
   //   type: String,
   //   default: uuidv4(),
   // }
-
+  // _id: {default: },
   parentName: String,
   password: { type: String, unique: true },
 });
