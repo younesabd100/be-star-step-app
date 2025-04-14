@@ -4,6 +4,6 @@ module.exports = [
     cost: "100",
     redeemedBy: "1", ///kid1 ID
     isRedeemed: "false",
-    created_by: "1", ///parentId
+    createdBy: "1", ///parentId
   },
 ];

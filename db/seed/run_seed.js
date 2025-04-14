@@ -4,9 +4,10 @@ const db = require("../connection");
 
 const runSeed = async () => {
   try {
-    await seed(testData);
+    await db.connectDB();
+    await seed();
   } catch (err) {
-    console.error;
+    console.error(err);
   } finally {
     await db.end();
   }

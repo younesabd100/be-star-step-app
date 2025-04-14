@@ -2,23 +2,37 @@ const mongoose = require("mongoose");
 const { v4: uuidv4 } = require("uuid");
 
 const parentSchema = new mongoose.Schema({
-  parentID: {
-    type: String,
-    default: uuidv4(),
-  },
+  // parentID: {
+  //   type: String,
+  //   default: uuidv4(),
+  // }
+
   parentName: String,
   password: { type: String, unique: true },
 });
+const childSchema = new mongoose.Schema({
+  // childId: {
+  //   type: String,
+  //   default: uuidv4(),
+  // },
 
+  name: String,
+  age: Number,
+  stars: { type: Number, default: 0 },
+  // tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
+  parentID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Parent" }],
+  avatar: String,
+});
 const taskSchema = new mongoose.Schema({
-  taskId: {
-    type: String,
-    default: uuidv4(),
-  },
+  // taskId: {
+  //   type: String,
+  //   default: uuidv4(),
+  // },
+
   title: String,
   status: {
     type: String,
-    enum: ["new", "in progress", "done"],
+    enum: ["new", "in_progress", "done"],
     default: "new",
   },
   validBefore: Date,
@@ -29,29 +43,18 @@ const taskSchema = new mongoose.Schema({
 });
 
 const rewardSchema = new mongoose.Schema({
-  rewardId: {
-    type: String,
-    default: uuidv4(),
-  },
+  // rewardId: {
+  //   type: String,
+  //   default: uuidv4(),
+  // },
+
   title: String,
   isRedeemed: Boolean,
   cost: Number,
   redeemedBy: { type: mongoose.Schema.Types.ObjectId, ref: "Child" },
-  created_by: { type: mongoose.Schema.Types.ObjectId, ref: "Parent" },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Parent" },
 });
 
-const childSchema = new mongoose.Schema({
-  childId: {
-    type: String,
-    default: uuidv4(),
-  },
-  name: String,
-  age: Number,
-  stars: { type: Number, default: 0 },
-  // tasks: [{ type: mongoose.Schema.Types.ObjectId, ref: "Task" }],
-  parentID: [{ type: mongoose.Schema.Types.ObjectId, ref: "Parent" }],
-  avatar: String,
-});
 const Parents = mongoose.model("Parent", parentSchema);
 const Tasks = mongoose.model("Task", taskSchema);
 const Rewards = mongoose.model("Reward", rewardSchema);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start-db": "node app.js",
     "seed-test": "node ./db/seed/run_seed.js"
   },
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "env": "^0.0.2",
-    "jest": "^29.7.0"
+    "jest": "^29.7.0",
+    "mongodb-memory-server": "^10.1.4"
   }
 }

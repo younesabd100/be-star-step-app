@@ -1,13 +1,10 @@
+require("dotenv").config({ path: `${__dirname}/../.env.test` });
 const mongoose = require("mongoose");
 const app = require("../app");
-const ENV = process.env.NODE_ENV || "development";
-require("dotenv").config({ path: `${__dirname}/../.env.test` });
-
-console.log(__dirname);
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(process.env.mongo_uri, {
+    const conn = await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -22,7 +19,7 @@ const end = async () => {
   await mongoose.disconnect();
   console.log("✅ MongoDB Disconnected");
 };
-connectDB();
+
 module.exports = {
   connectDB,
   mongoose,
