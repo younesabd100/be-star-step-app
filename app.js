@@ -10,9 +10,9 @@ const app = express();
 
 app.use(express.json());
 
-app.use("/api/parents", parentRoutes);
-app.use("/api/kids", kidRoutes);
-app.use("/api/tasks", taskRoutes);
+// app.use("/api/parents", parentRoutes);
+// app.use("/api/kids", kidRoutes);
+// app.use("/api/tasks", taskRoutes);
 app.use("/api/rewards", rewardRoutes);
 
 app.get("/", (req, res) => {
