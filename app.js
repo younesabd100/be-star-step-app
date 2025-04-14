@@ -1,19 +1,19 @@
 const express = require("express");
-const parentRoutes = require("./Routes/parents");
-const kidRoutes = require("./Routes/kids");
-const taskRoutes = require("./Routes/tasks");
-const rewardRoutes = require("./Routes/rewards");
-const connectDB = require("./db/connection");
-const { default: mongoose } = require("mongoose");
+// const parentRoutes = require("./Routes/parents");
+// const kidRoutes = require("./Routes/kids");
 
+// const rewardRoutes = require("./Routes/rewards");
+
+const tasksRouter = require("./Routes/tasks");
+const connectDB = require("./db/connection");
 const app = express();
 
 app.use(express.json());
 
-app.use("/api/parents", parentRoutes);
-app.use("/api/kids", kidRoutes);
-app.use("/api/tasks", taskRoutes);
-app.use("/api/rewards", rewardRoutes);
+// app.use("/api/parents", parentRoutes);
+// app.use("/api/kids", kidRoutes);
+app.use("/tasks", tasksRouter);
+// app.use("/api/rewards", rewardRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from MongoDB app!");
@@ -27,4 +27,4 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
-module.exports = app;
+module.exports = { app };
