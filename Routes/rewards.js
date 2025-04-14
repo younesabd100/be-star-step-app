@@ -1,6 +1,7 @@
-const { getRewardById } = require("../controllers/rewards.controllers")
+const { getRewardById, getRewards } = require("../controllers/rewards.controllers")
 
-const rewardRoutes = require("express").Router()
+const rewardsRouter = require("express").Router()
 
-rewardRoutes.get("/:reward_id", getRewardById)
-module.exports = rewardRoutes
+rewardsRouter.get("/:reward_id", getRewardById)
+rewardsRouter.get("/", getRewards)
+module.exports = rewardsRouter

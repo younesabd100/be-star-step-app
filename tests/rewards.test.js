@@ -30,3 +30,22 @@ describe("GET /api/rewards/:reward_id", () => {
             })
     });
 })
+
+describe("GET /api/rewards", () => {
+    test('200: responds with an array containing correct data on the rewards redeemed by given id', async () => {
+        return request(app)
+            .get('/api/rewards?redeemedBy=000000000000000000000002')
+            .expect(200)
+            .then(({ body: { rewards } }) => {
+                expect(rewards.length).toBeGreaterThan(0)
+                rewards.forEach((reward) => {
+                    expect(reward).toHaveProperty("task_id")
+                    expect(reward).toHaveProperty("title")
+                    expect(reward).toHaveProperty("cost")
+                    expect(reward).toHaveProperty("redeemedBy")
+                    expect(reward).toHaveProperty("isRedeemed")
+                    expect(reward).toHaveProperty("createdBy")
+                })
+            })
+    });
+})
