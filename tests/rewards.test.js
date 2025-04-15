@@ -49,3 +49,23 @@ describe("GET /api/rewards", () => {
             })
     });
 })
+
+describe("POST /tasks", () => {
+    test("201: responds with an object containing correct data on the new created reward", () => {
+        return request(app)
+            .post("/api/rewards")
+            .send({
+                title: "Ice Cream",
+                cost: 200,
+                createdBy: "000000000000000000000001"
+            },)
+            .expect(201)
+            .then(({ body: { reward } }) => {
+                expect(reward).toHaveProperty("reward_id")
+                expect(reward).toHaveProperty("title", "Ice Cream")
+                expect(reward).toHaveProperty("cost", 200)
+                expect(reward).toHaveProperty("isRedeemed", false)
+                expect(reward).toHaveProperty("createdBy", "000000000000000000000001")
+            })
+    });
+});

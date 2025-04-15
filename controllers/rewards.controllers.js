@@ -15,3 +15,11 @@ exports.getRewards = (req, res) => {
             res.send({ rewards })
         })
 }
+
+exports.postRewards = (req, res) => {
+    const body = req.body
+    return createRewards(body)
+        .then((reward) => {
+            res.status(201).send({ reward })
+        })
+}
