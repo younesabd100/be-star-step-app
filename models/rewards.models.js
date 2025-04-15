@@ -1,31 +1,31 @@
 const { Rewards } = require("../db/test_data/test.schema")
 
 exports.selectRewardById = (id) => {
-    return Rewards.findById(id).exec()
+    return Rewards.findById(id)
         .then(({ _id, title, cost, redeemedBy, isRedeemed, createdBy }) => {
             return {
-                reward_id: _id.toString(),
+                reward_id: _id,
                 title,
                 cost,
-                redeemedBy: redeemedBy.toString(),
+                redeemedBy,
                 isRedeemed,
-                createdBy: createdBy.toString()
+                createdBy
             }
         })
 }
 exports.selectRewards = (queries) => {
     if (queries.createdBy) {
-        return Rewards.find({ 'createdBy': `${queries.createdBy}` }).exec()
+        return Rewards.find({ 'createdBy': `${queries.createdBy}` })
             .then((rewards) => {
                 if (rewards.length > 0) {
                     return rewards.map(({ _id, title, cost, redeemedBy, isRedeemed, createdBy }) => {
                         return {
-                            reward_id: _id.toString(),
+                            reward_id: _id,
                             title,
                             cost,
-                            redeemedBy: redeemedBy.toString(),
+                            redeemedBy,
                             isRedeemed,
-                            createdBy: createdBy.toString()
+                            createdBy
                         }
                     })
                 }
@@ -37,31 +37,31 @@ exports.selectRewards = (queries) => {
 }
 exports.createRewards = (body) => {
     body.isRedeemed = false
-    const reward = new Rewards(body)
-    return reward.save()
+    console.log(body)
+    return Rewards.create(body)
         .then(({ _id, title, cost, isRedeemed, createdBy }) => {
             return {
-                reward_id: _id.toString(),
+                reward_id: _id,
                 title,
                 cost,
                 isRedeemed,
-                createdBy: createdBy.toString()
+                createdBy
             }
         })
 }
 exports.updateRewardsById = (reward_id, body) => {
-    return Rewards.findByIdAndUpdate(reward_id, body, { new: true }).exec()
+    return Rewards.findByIdAndUpdate(reward_id, body, { new: true })
         .then(({ _id, title, cost, redeemedBy, isRedeemed, createdBy }) => {
             return {
-                reward_id: _id.toString(),
+                reward_id: _id,
                 title,
                 cost,
-                redeemedBy: redeemedBy.toString(),
+                redeemedBy,
                 isRedeemed,
-                createdBy: createdBy.toString()
+                createdBy
             }
         })
 }
 exports.removeRewardsById = (reward_id) => {
-    return Rewards.findByIdAndDelete(reward_id).exec()
+    return Rewards.findByIdAndDelete(reward_id)
 }
