@@ -1,22 +1,14 @@
 const express = require("express");
-
-const kidRoutes = require("./Routes/kids");
-const rewardsRouter = require("./Routes/rewards");
-const tasksRouter = require("./Routes/tasks");
-const parentRouter = require("./Routes/parents");
-
 const app = express();
+const apiRouter = require("./Routes/api.router");
 
 app.use(express.json());
 
-app.use("/api/parents", parentRouter);
-app.use("/api/kids", kidRoutes);
-app.use("/api/tasks", tasksRouter);
-app.use("/api/rewards", rewardsRouter);
+app.use("/api", apiRouter);
 
-app.get("/", (req, res) => {
-  res.send("Hello from MongoDB app!");
-});
+// app.all("*", (req, res) => {
+//   res.status(404).send({ msg: "Not Found" });
+// });
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;

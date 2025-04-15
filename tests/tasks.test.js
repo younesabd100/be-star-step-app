@@ -11,16 +11,6 @@ beforeEach(async () => {
 afterAll(() => {
   return mongoose.disconnect();
 });
-describe("GET /", () => {
-  test("200: Responds with an text 'Hello from MongoDB app!'", () => {
-    return request(app)
-      .get("/")
-      .expect(200)
-      .then((response) => {
-        expect(response.text).toEqual("Hello from MongoDB app!");
-      });
-  });
-});
 
 describe("POST /tasks", () => {
   test("200: Responds with an object  containing inserted task's data including task_id", () => {
