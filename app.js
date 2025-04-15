@@ -1,18 +1,19 @@
 const express = require("express");
-
 const kidRoutes = require("./Routes/kids");
+const rewardsRouter = require("./Routes/rewards");
 const tasksRouter = require("./Routes/tasks");
-const connectDB = require("./db/connection");
 const parentRouter = require('./Routes/parents')
+
 
 const app = express();
 
 app.use(express.json());
 
 
-app.use("/api/parents", parentRouter);
+app.use("/api/parents", parentRoutes);
 app.use("/api/kids", kidRoutes);
-app.use("/tasks", tasksRouter);
+app.use("/api/tasks", taskRoutes);
+app.use("/api/rewards", rewardsRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello from MongoDB app!");
