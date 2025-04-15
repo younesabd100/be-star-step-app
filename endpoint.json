@@ -201,6 +201,22 @@
       }
     }
   },
+  "GET /api/rewards?redeemedBy=childId": {
+    "description": "Retrieves all rewards redeemed by a child",
+    "queries": ["redeemedBy"],
+    "exampleResponse": {
+      "rewards": [
+        {
+          "reward_id": 1,
+          "title": "Bike",
+          "cost": 50,
+          "redeemedBy": "1",
+          "isRedeemed": "false",
+          "createdBy": 1
+        }
+      ]
+    }
+  },
   "GET /api/rewards?createdBy=parent_id": {
     "description": "Retrieves all rewards created by a parent",
     "queries": ["createdBy"],
@@ -217,24 +233,11 @@
       ]
     }
   },
-  "PATCH /api/rewards/:reward_id": {
-    "description": "Updates a reward by reward_id",
-    "exampleRequest": {
-      "redeemedBy": "2"
-    },
-    "exampleResponse": {
-      "reward": {
-        "reward_id": 1,
-        "title": "Bike",
-        "cost": 50,
-        "redeemedBy": "2",
-        "isRedeemed": "false",
-        "createdBy": 1
-      }
-    }
-  },
   "DELETE /api/rewards/:reward_id": {
     "description": "Deletes a reward by reward_id",
+    "exampleRequest": {
+      "reward_id": 1
+    },
     "exampleResponse": {
       "status": 204
     }

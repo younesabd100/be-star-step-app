@@ -17,6 +17,7 @@ describe("GET /", () => {
       .get("/")
       .expect(200)
       .then((response) => {
+
         expect(response.text).toEqual("Hello from MongoDB app!");
       });
   });
@@ -36,6 +37,7 @@ describe("POST /tasks", () => {
       })
       .expect(201)
       .then(({ body }) => {
+
         expect(body.title).toEqual("Wash the dishes");
         expect(body.status).toEqual("new");
         expect(body.validBefore).toEqual("29-04-2025");
@@ -119,6 +121,7 @@ describe("GET api/tasks?assignedTo=childId", () => {
           expect(task.assignedTo).toBe("000000000000000000000006");
           expect(typeof task.starsReward).toBe("number");
         });
+
       });
   });
 });
