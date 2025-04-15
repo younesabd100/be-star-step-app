@@ -1,12 +1,16 @@
 const express = require("express");
+
 const kidRoutes = require("./Routes/kids");
 const tasksRouter = require("./Routes/tasks");
 const connectDB = require("./db/connection");
+const parentRouter = require('./Routes/parents')
 
 const app = express();
 
 app.use(express.json());
 
+
+app.use("/api/parents", parentRouter);
 app.use("/api/kids", kidRoutes);
 app.use("/tasks", tasksRouter);
 
@@ -23,4 +27,5 @@ app.use((err, req, res, next) => {
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
+
 module.exports = { app };
