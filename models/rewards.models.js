@@ -4,7 +4,7 @@ exports.selectRewardById = (id) => {
     return Rewards.findById(id).exec()
         .then(({ _id, title, cost, redeemedBy, isRedeemed, createdBy }) => {
             return {
-                task_id: _id.toString(),
+                reward_id: _id.toString(),
                 title,
                 cost,
                 redeemedBy: redeemedBy.toString(),
@@ -14,13 +14,13 @@ exports.selectRewardById = (id) => {
         })
 }
 exports.selectRewards = (queries) => {
-    if (queries.redeemedBy) {
-        return Rewards.find({ 'redeemedBy': `${queries.redeemedBy}` }).exec()
+    if (queries.createdBy) {
+        return Rewards.find({ 'createdBy': `${queries.createdBy}` }).exec()
             .then((rewards) => {
                 if (rewards.length > 0) {
                     return rewards.map(({ _id, title, cost, redeemedBy, isRedeemed, createdBy }) => {
                         return {
-                            task_id: _id.toString(),
+                            reward_id: _id.toString(),
                             title,
                             cost,
                             redeemedBy: redeemedBy.toString(),
@@ -30,5 +30,8 @@ exports.selectRewards = (queries) => {
                     })
                 }
             })
+    }
+    else {
+        return Promise.reject({ status: 400, msg: "Bad Request - use createdBy query" })
     }
 }

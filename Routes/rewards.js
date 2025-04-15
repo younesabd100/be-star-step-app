@@ -1,4 +1,4 @@
-const { getRewardById, getRewards } = require("../controllers/rewards.controllers")
+const { getRewardById, getRewards, postRewards } = require("../controllers/rewards.controllers")
 
 const rewardsRouter = require("express").Router()
 

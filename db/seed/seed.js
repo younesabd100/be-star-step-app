@@ -12,6 +12,7 @@ const {
   task1Id,
   task2Id,
   reward1Id,
+  reward2Id
 } = require("../test_data/test.id");
 const { Parents, Tasks, Rewards, Kids } = require("../test_data/test.schema");
 // console.log(parentData);
@@ -42,7 +43,8 @@ const seed = async () => {
     parentsInsertedData,
     kidsInsertedData,
     rewardsData,
-    reward1Id
+    reward1Id,
+    reward2Id
   );
 };
 
@@ -91,16 +93,17 @@ async function insertedTasks(
   return insertedKidsData;
 }
 
-async function insertedRewards(parentsData, kidsData, rewardsData, reward1Id) {
+async function insertedRewards(parentsData, kidsData, rewardsData, reward1Id, reward2Id) {
   const parentID = parentsData[0]._id;
   const newRewardsDataWithID = [];
+  const rewardId = [reward1Id, reward2Id]
   let i = 0;
   rewardsData.forEach((reward) => {
     newRewardsDataWithID.push({
       ...reward,
       createdBy: parentID,
       redeemedBy: kidsData[i]._id,
-      _id: reward1Id,
+      _id: rewardId[i],
     });
     i++;
   });

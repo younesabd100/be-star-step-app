@@ -1,4 +1,4 @@
-const { selectRewardById, selectRewards } = require("../models/rewards.models")
+const { selectRewardById, selectRewards, createRewards } = require("../models/rewards.models")
 
 exports.getRewardById = (req, res) => {
     const { reward_id } = req.params

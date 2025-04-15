@@ -21,7 +21,7 @@ describe("GET /api/rewards/:reward_id", () => {
             .get('/api/rewards/000000000000000000000005')
             .expect(200)
             .then(({ body: { reward } }) => {
-                expect(reward).toHaveProperty("task_id", "000000000000000000000005")
+                expect(reward).toHaveProperty("reward_id", "000000000000000000000005")
                 expect(reward).toHaveProperty("title", "Bike")
                 expect(reward).toHaveProperty("cost", 100)
                 expect(reward).toHaveProperty("redeemedBy", "000000000000000000000002")
@@ -32,19 +32,19 @@ describe("GET /api/rewards/:reward_id", () => {
 })
 
 describe("GET /api/rewards", () => {
-    test('200: responds with an array containing correct data on the rewards redeemed by given id', async () => {
+    test('200: responds with an array containing correct data on the rewards created by given parent id', async () => {
         return request(app)
-            .get('/api/rewards?redeemedBy=000000000000000000000002')
+            .get('/api/rewards?createdBy=000000000000000000000001')
             .expect(200)
             .then(({ body: { rewards } }) => {
-                expect(rewards.length).toBeGreaterThan(0)
+                expect(rewards.length).toBe(2)
                 rewards.forEach((reward) => {
-                    expect(reward).toHaveProperty("task_id")
+                    expect(reward).toHaveProperty("reward_id")
                     expect(reward).toHaveProperty("title")
                     expect(reward).toHaveProperty("cost")
                     expect(reward).toHaveProperty("redeemedBy")
                     expect(reward).toHaveProperty("isRedeemed")
-                    expect(reward).toHaveProperty("createdBy")
+                    expect(reward).toHaveProperty("createdBy", "000000000000000000000001")
                 })
             })
     });
