@@ -48,11 +48,13 @@ const seed = async () => {
 
 async function insertedParents(parentData, parentId) {
   const newParentData = { ...parentData, _id: parentId };
+
   const insertedParentsData = await Parents.insertMany(newParentData);
   return insertedParentsData;
 }
 
 async function insertedKids(parent, kidsData, kid1Id, kid2Id) {
+
   const parentID = parent[0]._id;
   const newKidsDataWithID = [];
   const kidsId = [kid1Id, kid2Id];
@@ -104,6 +106,7 @@ async function insertedRewards(parentsData, kidsData, rewardsData, reward1Id) {
     });
     i++;
   });
+
   const insertedRewardsData = await Rewards.insertMany(newRewardsDataWithID);
   return insertedRewardsData;
 }
