@@ -17,7 +17,6 @@ describe("GET /", () => {
       .get("/")
       .expect(200)
       .then((response) => {
-
         expect(response.text).toEqual("Hello from MongoDB app!");
       });
   });
@@ -26,7 +25,7 @@ describe("GET /", () => {
 describe("POST /tasks", () => {
   test("200: Responds with an object  containing inserted task's data including task_id", () => {
     return request(app)
-      .post("/tasks")
+      .post("/api/tasks")
       .send({
         title: "Wash the dishes",
         status: "new",
@@ -37,7 +36,6 @@ describe("POST /tasks", () => {
       })
       .expect(201)
       .then(({ body }) => {
-
         expect(body.title).toEqual("Wash the dishes");
         expect(body.status).toEqual("new");
         expect(body.validBefore).toEqual("29-04-2025");
@@ -49,14 +47,16 @@ describe("POST /tasks", () => {
 });
 describe("Delete /tasks/:task_id", () => {
   test("204: Responds with status 204 'No Content' after the task is successfully deleted", () => {
-    return request(app).delete("/tasks/000000000000000000000004").expect(204);
+    return request(app)
+      .delete("/api/tasks/000000000000000000000004")
+      .expect(204);
   });
 });
 
 describe("PATCH /api/tasks/:task_id", () => {
   test("200: Responds with the updated task", () => {
     return request(app)
-      .patch("/tasks/000000000000000000000004")
+      .patch("/api/tasks/000000000000000000000004")
       .send({ status: "in_progress" })
       .expect(200)
       .then(({ body }) => {
@@ -69,7 +69,7 @@ describe("PATCH /api/tasks/:task_id", () => {
 describe("GET api/tasks?createdBy=parent_id", () => {
   test("200: Responds with an array containing tasks created by parent  with requested id", () => {
     return request(app)
-      .get("/tasks?createdBy=000000000000000000000001")
+      .get("/api/tasks?createdBy=000000000000000000000001")
       .expect(200)
       .then(({ body }) => {
         expect(typeof body).toBe("object");
@@ -87,7 +87,7 @@ describe("GET api/tasks?createdBy=parent_id", () => {
 
   test("404: Responds with an error 404 Page nor found ", () => {
     return request(app)
-      .get("/tasks")
+      .get("/api/tasks")
       .expect(404)
       .then(({ text }) => {
         expect(text).toBe("Not found");
@@ -108,7 +108,7 @@ describe("GET api/tasks?createdBy=parent_id", () => {
 describe("GET api/tasks?assignedTo=childId", () => {
   test("200: Responds with an array containing tasks created by parent  with requested id", () => {
     return request(app)
-      .get("/tasks?assignedTo=000000000000000000000006")
+      .get("/api/tasks?assignedTo=000000000000000000000006")
       .expect(200)
       .then(({ body }) => {
         expect(typeof body).toBe("object");
@@ -121,7 +121,6 @@ describe("GET api/tasks?assignedTo=childId", () => {
           expect(task.assignedTo).toBe("000000000000000000000006");
           expect(typeof task.starsReward).toBe("number");
         });
-
       });
   });
 });

@@ -83,14 +83,6 @@ describe("GET /api/kids/:childID", () => {
         });
       });
   });
-  xtest("404: Responds with an error if a a Kid is not found", () => {
-    return request(app)
-      .post("/api/kids/4555")
-      .expect(404)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Kid not found");
-      });
-  });
 });
 describe("PATCH /api/kids/:childID", () => {
   test("200: Responds with an updtated object containing kid's data by childId", () => {

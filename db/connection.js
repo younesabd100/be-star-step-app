@@ -1,4 +1,5 @@
-require("dotenv").config({ path: `${__dirname}/../.env.test` });
+const env = process.env.NODE_ENV || "development";
+require("dotenv").config({ path: `${__dirname}/../.env.${env}` });
 const mongoose = require("mongoose");
 const app = require("../app");
 
