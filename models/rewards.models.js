@@ -35,7 +35,7 @@ exports.selectRewards = (queries) => {
         return Promise.reject({ status: 400, msg: "Bad Request - use createdBy query" })
     }
 }
-exports.createRewards = async (body) => {
+exports.createRewards = (body) => {
     body.isRedeemed = false
     const reward = new Rewards(body)
     return reward.save()
@@ -44,6 +44,19 @@ exports.createRewards = async (body) => {
                 reward_id: _id.toString(),
                 title,
                 cost,
+                isRedeemed,
+                createdBy: createdBy.toString()
+            }
+        })
+}
+exports.updateRewardsById = (reward_id, body) => {
+    return Rewards.findByIdAndUpdate(reward_id, body, { new: true }).exec()
+        .then(({ _id, title, cost, redeemedBy, isRedeemed, createdBy }) => {
+            return {
+                reward_id: _id.toString(),
+                title,
+                cost,
+                redeemedBy: redeemedBy.toString(),
                 isRedeemed,
                 createdBy: createdBy.toString()
             }

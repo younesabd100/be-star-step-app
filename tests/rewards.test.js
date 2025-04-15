@@ -69,3 +69,25 @@ describe("POST /tasks", () => {
             })
     });
 });
+
+describe("PATCH /tasks/:task_id", () => {
+    test("200: responds with an object containing correct data on the new updated reward", () => {
+        return request(app)
+            .patch("/api/rewards/000000000000000000000007")
+            .send({
+                title: "Candies",
+                cost: 250,
+                redeemedBy: "000000000000000000000002",
+                isRedeemed: true
+            },)
+            .expect(200)
+            .then(({ body: { reward } }) => {
+                expect(reward).toHaveProperty("reward_id")
+                expect(reward).toHaveProperty("title", "Candies")
+                expect(reward).toHaveProperty("cost", 250)
+                expect(reward).toHaveProperty("isRedeemed", true)
+                expect(reward).toHaveProperty("redeemedBy", "000000000000000000000002")
+                expect(reward).toHaveProperty("createdBy", "000000000000000000000001")
+            })
+    });
+});
