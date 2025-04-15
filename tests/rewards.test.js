@@ -2,6 +2,7 @@ const request = require("supertest")
 const app = require("../app")
 const seed = require("../db/seed/seed")
 const { connectDB, mongoose } = require("../db/connection")
+const { Rewards } = require("../db/test_data/test.schema")
 
 beforeAll(async () => {
     await connectDB();
@@ -88,6 +89,20 @@ describe("PATCH /tasks/:task_id", () => {
                 expect(reward).toHaveProperty("isRedeemed", true)
                 expect(reward).toHaveProperty("redeemedBy", "000000000000000000000002")
                 expect(reward).toHaveProperty("createdBy", "000000000000000000000001")
+            })
+    });
+});
+
+describe("DELETE /tasks/:task_id", () => {
+    test("204: responds with a 204 status if reward with given id has been deleted", () => {
+        return request(app)
+            .delete("/api/rewards/000000000000000000000007")
+            .expect(204)
+            .then(() => {
+                return Rewards.findById("000000000000000000000007")
+            })
+            .then((rewardFound) => {
+                expect(rewardFound).toBe(null)
             })
     });
 });

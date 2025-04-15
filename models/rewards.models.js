@@ -62,3 +62,6 @@ exports.updateRewardsById = (reward_id, body) => {
             }
         })
 }
+exports.removeRewardsById = (reward_id) => {
+    return Rewards.findByIdAndDelete(reward_id).exec()
+}

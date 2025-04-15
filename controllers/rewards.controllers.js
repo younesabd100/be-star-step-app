@@ -1,4 +1,4 @@
-const { selectRewardById, selectRewards, createRewards, updateRewardsById } = require("../models/rewards.models")
+const { selectRewardById, selectRewards, createRewards, updateRewardsById, removeRewardsById } = require("../models/rewards.models")
 
 exports.getRewardById = (req, res) => {
     const { reward_id } = req.params
@@ -30,5 +30,13 @@ exports.patchRewardsById = (req, res) => {
     return updateRewardsById(reward_id, body)
         .then((reward) => {
             res.status(200).send({ reward })
+        })
+}
+
+exports.deleteRewardsById = (req, res) => {
+    const { reward_id } = req.params
+    return removeRewardsById(reward_id)
+        .then(() => {
+            res.status(204).send()
         })
 }
