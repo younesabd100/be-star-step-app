@@ -1,18 +1,18 @@
 const express = require("express");
-const parentRoutes = require("./Routes/parents");
 const kidRoutes = require("./Routes/kids");
-const taskRoutes = require("./Routes/tasks");
-const connectDB = require("./db/connection");
-const { default: mongoose } = require("mongoose");
 const rewardsRouter = require("./Routes/rewards");
+const tasksRouter = require("./Routes/tasks");
+const parentRouter = require('./Routes/parents')
+
 
 const app = express();
 
 app.use(express.json());
 
-// app.use("/api/parents", parentRoutes);
-// app.use("/api/kids", kidRoutes);
-// app.use("/api/tasks", taskRoutes);
+
+app.use("/api/parents", parentRoutes);
+app.use("/api/kids", kidRoutes);
+app.use("/api/tasks", taskRoutes);
 app.use("/api/rewards", rewardsRouter);
 
 app.get("/", (req, res) => {
@@ -20,11 +20,13 @@ app.get("/", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).send("Something broke!");
+  const status = err.status || 500;
+  const msg = err.msg || "Internal Server Error";
+  res.status(status).json({ msg });
 });
 
 app.listen(3000, () => {
   console.log("Server running on http://localhost:3000");
 });
-module.exports = app;
+
+module.exports = { app };

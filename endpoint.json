@@ -1,0 +1,245 @@
+{
+  "GET /api": {
+    "description": "serves up a json representation of all the available endpoints of the api"
+  },
+  "POST /api/parents": {
+    "description": "Creates a new parent account",
+    "requestBody": {
+      "parentName": "string",
+      "password": "string"
+    },
+    "exampleResponse": {
+      "parent": {
+        "parent_id": 1,
+        "name": "Jhon"
+      }
+    }
+  },
+  "GET /api/parents/:parent_id": {
+    "description": "Retrieves parent information by parent_id",
+    "queries": ["parent_id"],
+    "exampleResponse": {
+      "parent": {
+        "parent_id": 1,
+        "parentName": "Jhon"
+      }
+    }
+  },
+  "POST /api/kids": {
+    "description": "Creates a new child account",
+    "requestBody": {
+      "name": "string",
+      "age": "integer",
+      "avatar": "string"
+    },
+    "exampleResponse": {
+      "child": {
+        "child_id": 1,
+        "name": "Rose",
+        "age": 10,
+        "avatar": "https://kollitsch.dev/blog/2025/well-known-avatar-url/imkara-visual-3blY8iC2o5M-unsplash_hu_ece1282edb68eba4.jpg",
+        "stars": 0,
+        "parent_id": 1
+      }
+    }
+  },
+  "GET /api/kids/:childId": {
+    "description": "Retrieves child information by childId",
+    "queries": ["childId"],
+    "exampleResponse": {
+      "child": {
+        "child_id": 1,
+        "name": "Rose",
+        "age": 10,
+        "avatar": "https://kollitsch.dev/blog/2025/well-known-avatar-url/imkara-visual-3blY8iC2o5M-unsplash_hu_ece1282edb68eba4.jpg",
+        "stars": 0,
+        "parent_id": 1
+      }
+    }
+  },
+  "PATCH /api/kid/:childId": {
+    "description": "Updates child's number of star by childId",
+    "requestBody": {
+      "stars": "integer (positive or negative) to adjust the star count"
+    },
+    "exampleRequest": {
+      "stars": 5
+    },
+    "exampleResponse": {
+      "child": {
+        "child_id": 1,
+        "name": "Rose",
+        "age": 10,
+        "avatar": "https://kollitsch.dev/blog/2025/well-known-avatar-url/imkara-visual-3blY8iC2o5M-unsplash_hu_ece1282edb68eba4.jpg",
+        "stars": 5,
+        "parent_id": 1
+      }
+    }
+  },
+  "POST /api/tasks": {
+    "description": "Creates a new task",
+    "requestBody": {
+      "title": "string",
+      "starsRewards": "integer",
+      "validBefore": "string"
+    },
+    "exampleResponse": {
+      "task": {
+        "task_id": 1,
+        "title": "Clean your room",
+        "starsRewards": "2",
+        "validBefore": "2025-05-15",
+        "assignedTo": "1",
+        "createdBy": "67f9209ff7697221b4b80271",
+        "status": "in_progress"
+      }
+    }
+  },
+  "GET /api/tasks/:task_id": {
+    "description": "Retrieves task details by task_id",
+    "queries": ["task_id"],
+    "exampleResponse": {
+      "task": {
+        "task_id": 1,
+        "title": "Clean your room",
+        "starsRewards": "2",
+        "validBefore": "2025-05-15",
+        "assignedTo": "1",
+        "createdBy": "67f9209ff7697221b4b80271",
+        "status": "in_progress"
+      }
+    }
+  },
+  "GET /api/tasks?createdBy=parent_id": {
+    "description": "Retrieves all tasks created by a parent",
+    "queries": ["createdBy"],
+    "exampleResponse": {
+      "tasks": [
+        {
+          "task_id": 1,
+          "title": "Clean your room",
+          "starsRewards": "2",
+          "validBefore": "2025-05-15",
+          "assignedTo": "1",
+          "createdBy": "67f9209ff7697221b4b80271",
+          "status": "in_progress"
+        }
+      ]
+    }
+  },
+  "GET /api/tasks?assignedTo=childId": {
+    "description": "Retrieves all tasks assigned to a child",
+    "queries": ["assignedTo"],
+    "exampleResponse": {
+      "tasks": [
+        {
+          "task_id": 1,
+          "title": "Clean your room",
+          "starsRewards": "2",
+          "validBefore": "2025-05-15",
+          "assignedTo": "1",
+          "createdBy": "67f9209ff7697221b4b80271",
+          "status": "in_progress"
+        }
+      ]
+    }
+  },
+  "PATCH /api/tasks/:task_id": {
+    "description": "Updates a task's details by task_id",
+    "requestBody": {
+      "title": "string (optional)",
+      "starsRewards": "integer (optional)",
+      "status": "string (e.g. 'completed')"
+    },
+    "exampleRequest": {
+      "status": "completed"
+    },
+    "exampleResponse": {
+      "task": {
+        "task_id": 1,
+        "status": "completed"
+      }
+    }
+  },
+  "DELETE /api/tasks/:task_id": {
+    "description": "Deletes a task by task_id",
+    "exampleRequest": {
+      "task_id": 1
+    },
+    "exampleResponse": {
+      "status": 204
+    }
+  },
+  "POST /api/rewards/": {
+    "description": "Creates a new reward",
+    "requestBody": {
+      "title": "string",
+      "cost": "integer"
+    },
+    "exampleResponse": {
+      "reward": {
+        "reward_id": 1,
+        "title": "Bike",
+        "cost": 50,
+        "redeemedBy": "1",
+        "isRedeemed": "false",
+        "createdBy": 1
+      }
+    }
+  },
+  "GET /api/rewards/:reward_id": {
+    "description": "Retrieves a reward by reward_id",
+    "queries": ["reward_id"],
+    "exampleResponse": {
+      "reward": {
+        "reward_id": 1,
+        "title": "Bike",
+        "cost": 50,
+        "redeemedBy": "1",
+        "isRedeemed": "false",
+        "createdBy": 1
+      }
+    }
+  },
+  "GET /api/rewards?redeemedBy=childId": {
+    "description": "Retrieves all rewards redeemed by a child",
+    "queries": ["redeemedBy"],
+    "exampleResponse": {
+      "rewards": [
+        {
+          "reward_id": 1,
+          "title": "Bike",
+          "cost": 50,
+          "redeemedBy": "1",
+          "isRedeemed": "false",
+          "createdBy": 1
+        }
+      ]
+    }
+  },
+  "GET /api/rewards?createdBy=parent_id": {
+    "description": "Retrieves all rewards created by a parent",
+    "queries": ["createdBy"],
+    "exampleResponse": {
+      "rewards": [
+        {
+          "reward_id": 1,
+          "title": "Bike",
+          "cost": 50,
+          "redeemedBy": "1",
+          "isRedeemed": "false",
+          "createdBy": 1
+        }
+      ]
+    }
+  },
+  "DELETE /api/rewards/:reward_id": {
+    "description": "Deletes a reward by reward_id",
+    "exampleRequest": {
+      "reward_id": 1
+    },
+    "exampleResponse": {
+      "status": 204
+    }
+  }
+}
