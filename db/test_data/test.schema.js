@@ -39,8 +39,7 @@ const taskSchema = new mongoose.Schema({
   validBefore: Date,
   createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "Parent" },
   assignedTo: { type: mongoose.Schema.Types.ObjectId, ref: "Child" },
-
-  starsReward: Number,
+  starsReward: { type: Number, default: 0 },
 });
 
 const rewardSchema = new mongoose.Schema({

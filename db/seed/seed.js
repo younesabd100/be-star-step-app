@@ -91,8 +91,9 @@ async function insertedTasks(
     i++;
   });
 
-  const insertedKidsData = await Tasks.insertMany(newTasksDataWithID);
-  return insertedKidsData;
+  const insertedTaskData = await Tasks.insertMany(newTasksDataWithID);
+
+  return insertedTaskData;
 }
 
 async function insertedRewards(parentsData, kidsData, rewardsData, reward1Id, reward2Id) {

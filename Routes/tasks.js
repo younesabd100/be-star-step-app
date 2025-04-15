@@ -1,5 +1,13 @@
-const { postTask } = require("../controllers/tasks_controller");
+const {
+  postTask,
+  deleteTaskById,
+  patchTaskById,
+  getTasks,
+} = require("../controllers/tasks_controller");
 
-const taskRoutes = require("express").Router();
-taskRoutes.route("/").post(postTask);
+const tasksRouter = require("express").Router();
+tasksRouter.route("/").post(postTask).get(getTasks);
+tasksRouter.route("/:task_id").delete(deleteTaskById).patch(patchTaskById);
+
+
 module.exports = taskRoutes;

@@ -1,7 +1,7 @@
 module.exports = [
   {
     title: "Tidy bedroom",
-    starsRewards: "2",
+    starsReward: 2,
     validBefore: "2025-05-15",
     assignedTo: "1", ////kid1 ID
     createdBy: "67f9209ff7697221b4b80271", ////parent
@@ -9,7 +9,7 @@ module.exports = [
   },
   {
     title: "Do homework",
-    starsRewards: "3",
+    starsReward: 3,
     validBefore: "2025-05-25",
     assignedTo: "2", //////kid2 ID
     createdBy: "1", ////parent ID
