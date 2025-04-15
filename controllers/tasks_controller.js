@@ -11,6 +11,7 @@ exports.postTask = (req, res, next) => {
       res.status(201).send(newTaskData);
     })
     .catch((err) => {
+      console.log(err);
       next(err);
     });
 };
@@ -49,6 +50,6 @@ exports.getTasks = (req, res, next) => {
         next(err);
       });
   } else {
-    return Promise.reject({ status: 404, msg: "Not found" });
+    res.status(404).send("Not found");
   }
 };

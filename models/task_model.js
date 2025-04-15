@@ -22,15 +22,15 @@ exports.editTaskById = async (task_id, updates) => {
   const newDate = dataConvert(date);
 
   const readyResponse = { ...editedTask._doc, validBefore: newDate };
-  console.log(readyResponse);
+
   return readyResponse;
 };
 exports.fetchTasks = async (queryKey, queryValue) => {
   const requestToDb = {};
   requestToDb[queryKey] = queryValue;
-  //   console.log(requestToDb);
+  // console.log(requestToDb);
   const listOfTasks = await Tasks.find(requestToDb);
-  console.log(listOfTasks);
+
   const newListOfTasks = [];
 
   listOfTasks.forEach((task) => {
@@ -38,5 +38,6 @@ exports.fetchTasks = async (queryKey, queryValue) => {
     const newDate = dataConvert(date);
     newListOfTasks.push({ ...task._doc, validBefore: newDate });
   });
+  // console.log(newListOfTasks);
   return newListOfTasks;
 };
