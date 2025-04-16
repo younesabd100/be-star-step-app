@@ -58,6 +58,7 @@ exports.getTaskById = (req, res, next) => {
   const task_id = req.params.task_id;
   return fetchTaskById(task_id)
     .then((task) => {
+      console.log(task);
       res.send(task);
     })
     .catch((err) => {

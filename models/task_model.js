@@ -42,6 +42,7 @@ exports.fetchTasks = async (queryKey, queryValue) => {
   return newListOfTasks;
 };
 exports.fetchTaskById = async (task_id) => {
+  console.log(task_id);
   const task = await Tasks.findById(task_id);
-  console.log(task);
+  return task;
 };

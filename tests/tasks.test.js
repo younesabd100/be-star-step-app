@@ -61,9 +61,10 @@ describe("PATCH /api/tasks/:task_id", () => {
 describe("GET /api/tasks/:task_id", () => {
   test("200: Responds with the  task", () => {
     return request(app)
-      .patch("/api/tasks/000000000000000000000004")
+      .get("/api/tasks/000000000000000000000004")
       .expect(200)
       .then(({ body }) => {
+        console.log(body);
         expect(body._id).toEqual("000000000000000000000004");
       });
   });
@@ -93,16 +94,6 @@ describe("GET api/tasks?createdBy=parent_id", () => {
       .expect(404)
       .then(({ text }) => {
         expect(text).toBe("Not found");
-        // expect(typeof body).toBe("object");
-        // body.forEach((task) => {
-        //   expect(typeof task.title).toBe("string");
-        //   expect(typeof task._id).toBe("string");
-        //   expect(typeof task.status).toBe("string");
-        //   expect(typeof task.validBefore).toBe("string");
-        //   expect(task.createdBy).toBe("000000000000000000000001");
-        //   expect(typeof task.assignedTo).toBe("string");
-        //   expect(typeof task.starsReward).toBe("number");
-        // });
       });
   });
 });
