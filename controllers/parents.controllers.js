@@ -6,8 +6,7 @@ const postParent = async (req, res) => {
     res.status(201).send(createdParent);
   }
   catch (err) {
-    console.warn(err);
-    next(err);
+    throw err;
   }
 };
 
