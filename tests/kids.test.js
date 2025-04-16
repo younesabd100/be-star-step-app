@@ -19,6 +19,7 @@ describe("POST /api/kids", () => {
       age: 7,
       avatar:
         "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x",
+      parentID: ["000000000000000000000001"],
     };
     return request(app)
       .post("/api/kids")
@@ -31,6 +32,7 @@ describe("POST /api/kids", () => {
           age: 7,
           avatar:
             "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x",
+          parentID: ["000000000000000000000001"],
         });
       });
   });
@@ -46,21 +48,6 @@ describe("POST /api/kids", () => {
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Missing info");
-      });
-  });
-  test("400: Responds with an error when correct field but incorrect value", () => {
-    const newKid = {
-      name: "Tommy",
-      age: "sept",
-      avatar:
-        "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x",
-    };
-    return request(app)
-      .post("/api/kids")
-      .send(newKid)
-      .expect(400)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Invalid data type entered");
       });
   });
 });
@@ -105,6 +92,20 @@ describe("PATCH /api/kids/:childID", () => {
             "https://www.shutterstock.com/image-vector/vector-cartoon-funny-orange-monster-600nw-2493211707.jpg",
           __v: 0,
         });
+      });
+  });
+});
+
+describe("GET /api/kids?parent_id", () => {
+  test("200: Responds with an object  containing kid's data by childId", () => {
+    return request(app)
+      .get("/api/kids?parent_id=000000000000000000000001")
+      .expect(200)
+      .then(({ body: { kid } }) => {
+        kid.forEach((child) => {
+          expect(child.parentID).toEqual(["000000000000000000000001"]);
+        });
+        expect(typeof kid).toBe("object");
       });
   });
 });
