@@ -2,10 +2,15 @@ const express = require("express");
 const app = express();
 const apiRouter = require("./Routes/api.router");
 const { connectDB } = require("./db/connection");
+const userRoutes = require("./routes/user");
+require("dotenv").config();
+
 connectDB();
+
 app.use(express.json());
 
 app.use("/api", apiRouter);
+app.use("/api/user", userRoutes);
 
 // app.all("*", (req, res) => {
 //   res.status(404).send({ msg: "Not Found" });
