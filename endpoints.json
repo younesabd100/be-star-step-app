@@ -11,7 +11,7 @@
     "exampleResponse": {
       "parent": {
         "parent_id": 1,
-        "name": "Jhon"
+        "name": "John"
       }
     }
   },
@@ -21,7 +21,7 @@
     "exampleResponse": {
       "parent": {
         "parent_id": 1,
-        "parentName": "Jhon"
+        "parentName": "John"
       }
     }
   },
