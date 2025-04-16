@@ -23,6 +23,7 @@ describe("POST /tasks", () => {
         createdBy: "67fca361f6013f4518e4bcf7",
         assignedTo: "67fca362f6013f4518e4bcfb",
         starsReward: "9",
+        _id: "000000000000000000000007",
       })
       .expect(201)
       .then(({ body }) => {
@@ -32,6 +33,7 @@ describe("POST /tasks", () => {
         expect(body.createdBy).toEqual("67fca361f6013f4518e4bcf7");
         expect(body.assignedTo).toEqual("67fca362f6013f4518e4bcfb");
         expect(body.starsReward).toEqual(9);
+        expect(body._id).toEqual("000000000000000000000007");
       });
   });
 });
@@ -56,6 +58,16 @@ describe("PATCH /api/tasks/:task_id", () => {
   });
 });
 
+describe("GET /api/tasks/:task_id", () => {
+  test("200: Responds with the  task", () => {
+    return request(app)
+      .patch("/api/tasks/000000000000000000000004")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body._id).toEqual("000000000000000000000004");
+      });
+  });
+});
 describe("GET api/tasks?createdBy=parent_id", () => {
   test("200: Responds with an array containing tasks created by parent  with requested id", () => {
     return request(app)

@@ -3,6 +3,7 @@ const {
   removeTaskById,
   editTaskById,
   fetchTasks,
+  fetchTaskById,
 } = require("../models/task_model");
 
 exports.postTask = (req, res, next) => {
@@ -52,5 +53,14 @@ exports.getTasks = (req, res, next) => {
   } else {
     res.status(404).send("Not found");
   }
-
+};
+exports.getTaskById = (req, res, next) => {
+  const task_id = req.params.task_id;
+  return fetchTaskById(task_id)
+    .then((task) => {
+      res.send(task);
+    })
+    .catch((err) => {
+      next(err);
+    });
 };
