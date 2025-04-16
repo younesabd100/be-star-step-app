@@ -3,7 +3,7 @@ const app = express();
 const apiRouter = require("./Routes/api.router");
 const cors = require("cors");
 const { connectDB } = require("./db/connection");
-app.use(cors({ origin: "http://localhost:8081" }));
+app.use(cors());
 connectDB();
 app.use(express.json());
 
