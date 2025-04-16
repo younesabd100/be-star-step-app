@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const apiRouter = require("./Routes/api.router");
-
+connectDB();
 app.use(express.json());
 
 app.use("/api", apiRouter);
