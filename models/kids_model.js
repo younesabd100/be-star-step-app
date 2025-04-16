@@ -39,3 +39,10 @@ exports.updateStarKidById = async (childID, stars) => {
 
   return updtatedKid;
 };
+
+exports.getKidsByParentId = async (parentID) => {
+  const requestToDb = {};
+  requestToDb.parent_id = parentID;
+  const listKid = await Kids.find(requestToDb);
+  return listKid;
+};

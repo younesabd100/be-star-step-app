@@ -108,3 +108,17 @@ describe("PATCH /api/kids/:childID", () => {
       });
   });
 });
+
+describe("GET /api/kids?parent_id", () => {
+  test("200: Responds with an object  containing kid's data by childId", () => {
+    return request(app)
+      .get("/api/kids?parent_id=000000000000000000000001")
+      .expect(200)
+      .then(({ body: { kid } }) => {
+        kid.forEach((child) => {
+          expect(child.parentID).toEqual(["000000000000000000000001"]);
+        });
+        expect(typeof kid).toBe("object");
+      });
+  });
+});
