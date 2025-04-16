@@ -2,7 +2,7 @@ const request = require("supertest");
 const seed = require("../db/seed/seed");
 const data = require("../db/test_data");
 const { app } = require("../app");
-const endpointsJSon = require("../endpoint.json");
+const endpointsJSon = require("../endpoints.json");
 const { connectDB, mongoose } = require("../db/connection");
 
 beforeEach(async () => {
@@ -13,7 +13,7 @@ afterAll(() => {
   return mongoose.disconnect();
 });
 
-describe("GET /", () => {
+describe("GET /api", () => {
   test("200: Responds with an text 'Hello from MongoDB app!'", () => {
     return request(app)
       .get("/api")
