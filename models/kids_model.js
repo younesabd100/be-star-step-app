@@ -4,14 +4,7 @@ exports.createNewKid = async (kidData) => {
   const { name, age, avatar, parentID } = kidData;
 
   // Check required fields
-  if (
-    !name ||
-    !age ||
-    !avatar ||
-    !parentID ||
-    !Array.isArray(parentID) ||
-    parentID.length === 0
-  ) {
+  if (!name || !age || !avatar || !parentID || parentID.length === 0) {
     throw {
       status: 400,
       msg: "Missing info",
