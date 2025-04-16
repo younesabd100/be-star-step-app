@@ -1,4 +1,4 @@
-const { newParent, getParentById, newParent } = require("../models/parents.model");
+const { newParent, getParentById } = require("../models/parents.model");
 
 const postParent = async (req, res) => {
   try {
