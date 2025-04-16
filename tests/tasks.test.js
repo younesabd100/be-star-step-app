@@ -18,7 +18,7 @@ describe("POST /tasks", () => {
       .post("/api/tasks")
       .send({
         title: "Wash the dishes",
-        status: "new",
+        status: "newoijh",
         validBefore: "2025-04-29",
         createdBy: "67fca361f6013f4518e4bcf7",
         assignedTo: "67fca362f6013f4518e4bcfb",

@@ -12,12 +12,13 @@ const {
   task1Id,
   task2Id,
   reward1Id,
-  reward2Id
+  reward2Id,
 } = require("../test_data/test.id");
 
 const { Parents, Tasks, Rewards, Kids } = require("../test_data/test.schema");
 
 const seed = async () => {
+  console.log("Data is deleting>>>>>>>>>");
   await Parents.deleteMany({}); //database keyword to delete many items/data if any exists.
   const parentsInsertedData = await insertedParents(parentData, parentId);
 
@@ -56,7 +57,6 @@ async function insertedParents(parentData, parentId) {
 }
 
 async function insertedKids(parent, kidsData, kid1Id, kid2Id) {
-
   const parentID = parent[0]._id;
   const newKidsDataWithID = [];
   const kidsId = [kid1Id, kid2Id];
@@ -96,10 +96,16 @@ async function insertedTasks(
   return insertedTaskData;
 }
 
-async function insertedRewards(parentsData, kidsData, rewardsData, reward1Id, reward2Id) {
+async function insertedRewards(
+  parentsData,
+  kidsData,
+  rewardsData,
+  reward1Id,
+  reward2Id
+) {
   const parentID = parentsData[0]._id;
   const newRewardsDataWithID = [];
-  const rewardId = [reward1Id, reward2Id]
+  const rewardId = [reward1Id, reward2Id];
   let i = 0;
   rewardsData.forEach((reward) => {
     newRewardsDataWithID.push({
