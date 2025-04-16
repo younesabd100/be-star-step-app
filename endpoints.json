@@ -30,7 +30,8 @@
     "requestBody": {
       "name": "string",
       "age": "integer",
-      "avatar": "string"
+      "avatar": "string",
+      "parent_ID": "integer"
     },
     "exampleResponse": {
       "child": {

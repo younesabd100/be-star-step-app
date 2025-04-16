@@ -1,24 +1,39 @@
-const { Kids } = require("../db/test_data/test.schema");
+const { Kids, Parents } = require("../db/test_data/test.schema");
 
 exports.createNewKid = async (kidData) => {
-  const { name, age, avatar } = kidData;
+  const { name, age, avatar, parentID } = kidData;
 
-  if (!name || !age || !avatar) {
-    throw { status: 400, msg: "Missing info" };
+  // Check required fields
+  if (
+    !name ||
+    !age ||
+    !avatar ||
+    !parentID ||
+    !Array.isArray(parentID) ||
+    parentID.length === 0
+  ) {
+    throw {
+      status: 400,
+      msg: "Missing info",
+    };
   }
 
+  // Validate data types
   if (
     typeof name !== "string" ||
     typeof avatar !== "string" ||
     typeof age !== "number" ||
-    !Number.isInteger(age)
+    !Number.isInteger(age) ||
+    !parentID.every((id) => typeof id === "string")
   ) {
     throw { status: 400, msg: "Invalid data type entered" };
   }
 
-  const kid = new Kids(kidData);
+  // Create and save the kid
+  const kid = new Kids({ name, age, avatar, parentID });
   return await kid.save();
 };
+
 exports.selectKidById = async (childID) => {
   const kid = await Kids.findById(childID);
   if (!kid) {

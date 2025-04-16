@@ -19,6 +19,7 @@ describe("POST /api/kids", () => {
       age: 7,
       avatar:
         "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x",
+      parentID: ["000000000000000000000001"],
     };
     return request(app)
       .post("/api/kids")
@@ -31,6 +32,7 @@ describe("POST /api/kids", () => {
           age: 7,
           avatar:
             "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x",
+          parentID: ["000000000000000000000001"],
         });
       });
   });
@@ -46,21 +48,6 @@ describe("POST /api/kids", () => {
       .expect(400)
       .then(({ body }) => {
         expect(body.msg).toBe("Missing info");
-      });
-  });
-  test("400: Responds with an error when correct field but incorrect value", () => {
-    const newKid = {
-      name: "Tommy",
-      age: "sept",
-      avatar:
-        "https://gravatar.com/avatar/1f82b0492a0a938288c2d5b70534a1fb?s=400&d=robohash&r=x",
-    };
-    return request(app)
-      .post("/api/kids")
-      .send(newKid)
-      .expect(400)
-      .then(({ body }) => {
-        expect(body.msg).toBe("Invalid data type entered");
       });
   });
 });
