@@ -1,8 +1,6 @@
 const { Tasks } = require("../db/test_data/test.schema");
 const { dataConvert } = require("../utils/data_convert_for_response");
 exports.createNewTask = async (taskData) => {
-  const newTask1 = new Tasks(taskData);
-  newTask1.save();
   const newTask = await Tasks.insertOne(taskData);
   const date = newTask.validBefore;
   const newDate = dataConvert(date);
