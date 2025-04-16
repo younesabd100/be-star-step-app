@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const apiRouter = require("./Routes/api.router");
-const connectDB = require("../be-star-step-app/db/connection");
+const connectDB = require("./db/connection");
 connectDB();
 app.use(express.json());
 
