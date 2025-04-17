@@ -1,17 +1,13 @@
 const { newParent, getParentById } = require("../models/parents.model");
 
-const postParent = (req, res) => {
-  return newParent(req.body)
-    .then((result) => {
-      if (!result.parentName || !result.password) {
-        return res.status(400).send({ msg: "Missing parent name or password" });
-      } else {
-        res.status(201).send(result);
-      }
-    })
-    .catch((err) => {
-      res.status(500).send({ msg: "Error creating parent" });
-    });
+const postParent = async (req, res) => {
+  try {
+    const createdParent = await newParent(req.body);
+    res.status(201).send(createdParent);
+  }
+  catch (err) {
+    throw err;
+  }
 };
 
 const fetchParentById = async (req, res) => {

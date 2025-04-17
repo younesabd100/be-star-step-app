@@ -14,16 +14,12 @@ const {
   reward1Id,
   reward2Id,
 } = require("../test_data/test.id");
-
+const { connectDB, end } = require("../connection");
 const { Parents, Tasks, Rewards, Kids } = require("../test_data/test.schema");
 
 const seed = async () => {
-  // console.warn("Data is deleting>>>>>>>>>");
-  await Parents.deleteMany({}); //database keyword to delete many items/data if any exists.
+  await connectDB();
   const parentsInsertedData = await insertedParents(parentData, parentId);
-
-  // console.error("KIDS data is deleting>>>>>>>>>");
-  await Kids.deleteMany({});
   const kidsInsertedData = await insertedKids(
     parentsInsertedData,
     kidsData,
@@ -31,7 +27,6 @@ const seed = async () => {
     kid2Id
   ); //this insert's the defined data above
 
-  await Tasks.deleteMany({});
   await insertedTasks(
     parentsInsertedData,
     kidsInsertedData,
@@ -40,7 +35,6 @@ const seed = async () => {
     task2Id
   );
 
-  await Rewards.deleteMany({});
   await insertedRewards(
     parentsInsertedData,
     kidsInsertedData,
@@ -120,5 +114,7 @@ async function insertedRewards(
 
   const insertedRewardsData = await Rewards.insertMany(newRewardsDataWithID);
   return insertedRewardsData;
+  end();
 }
+seed();
 module.exports = seed;

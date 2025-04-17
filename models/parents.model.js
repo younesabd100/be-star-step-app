@@ -1,5 +1,13 @@
 const { Parents } = require("../db/test_data/test.schema");
 exports.newParent = async (parentData) => {
+  
+  if (!parentData.parentName || !parentData.password) {
+    throw {
+      status: 400,
+      msg: "Missing parent name or password",
+    };
+  }
+
   const parent = await Parents.create(parentData);
   return parent;
 };
