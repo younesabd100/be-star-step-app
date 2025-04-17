@@ -13,6 +13,9 @@ app.use(express.json());
 app.use("/api", apiRouter);
 app.use("/api/user", require("./Routes/user"));
 
+const versionRouter = require("./routes/version");
+app.use("/api/version", versionRouter);
+
 // app.all("*", (req, res) => {
 //   res.status(404).send({ msg: "Not Found" });
 // });
