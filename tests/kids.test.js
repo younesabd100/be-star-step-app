@@ -2,14 +2,15 @@ const request = require("supertest");
 const seed = require("../db/seed/seed");
 const data = require("../db/test_data");
 const { app } = require("../app");
-const { connectDB, mongoose } = require("../db/connection");
+const { connectDB, mongoose, end } = require("../db/connection");
 
 beforeEach(async () => {
+  process.env.NODE_ENV = "test";
   await connectDB();
   await seed(data);
 });
 afterAll(async () => {
-  await mongoose.disconnect();
+  await end();
 });
 
 describe("POST /api/kids", () => {

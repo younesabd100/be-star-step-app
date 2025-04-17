@@ -3,14 +3,15 @@ const seed = require("../db/seed/seed");
 const data = require("../db/test_data");
 const { app } = require("../app");
 const endpointsJSon = require("../endpoints.json");
-const { connectDB, mongoose } = require("../db/connection");
+const { connectDB, mongoose, end } = require("../db/connection");
 
 beforeEach(async () => {
+  process.env.NODE_ENV = "test";
   await connectDB();
   await seed(data);
 });
-afterAll(() => {
-  return mongoose.disconnect();
+afterAll(async () => {
+  await end();
 });
 
 describe("GET /api", () => {
@@ -29,13 +30,13 @@ describe("POST /api/parents", () => {
     return request(app)
       .post("/api/parents")
       .send({
-        parentName: "Testparent",
-        password: "idk",
+        parentName: "David",
+        password: "12345",
       })
       .expect(201)
       .then((res) => {
         expect(res.body).toHaveProperty("_id");
-        expect(res.body.parentName).toBe("Testparent");
+        expect(res.body.parentName).toBe("David");
       });
   });
   test("400:should return error if parentName is missing", () => {
