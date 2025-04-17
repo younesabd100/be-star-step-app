@@ -11,7 +11,7 @@ connectDB();
 app.use(express.json());
 
 app.use("/api", apiRouter);
-app.use("/api/user", userRoutes);
+app.use("/api/user", require("./Routes/user"));
 
 // app.all("*", (req, res) => {
 //   res.status(404).send({ msg: "Not Found" });

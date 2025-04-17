@@ -1,13 +1,7 @@
 const express = require("express");
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
-const User = require("../models/User");
-const { auth } = require("express-oauth2-jwt-bearer");
-
 const router = express.Router();
-
-console.log("AUTH0_AUDIENCE:", process.env.AUTH0_AUDIENCE);
-console.log("AUTH0_DOMAIN:", process.env.AUTH0_DOMAIN);
+const { auth } = require("express-oauth2-jwt-bearer");
+const User = require("../models/User");
 
 const checkJwt = auth({
   audience: process.env.AUTH0_AUDIENCE,
@@ -17,12 +11,13 @@ const checkJwt = auth({
 router.get("/me", checkJwt, async (req, res, next) => {
   try {
     const auth0Id = req.auth.payload.sub;
-    // Find or create user in DB
-    const user = await User.findOne({ auth0Id });
+    let user = await User.findOne({ auth0Id });
+
     if (!user) {
-      // Optionally create user
+      user = await User.create({ auth0Id });
     }
-    res.json(user);
+
+    res.status(200).send(user);
   } catch (err) {
     next(err);
   }
