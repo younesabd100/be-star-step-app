@@ -35,7 +35,7 @@ exports.createNewKid = async (kidData) => {
 };
 
 exports.selectKidById = async (childID) => {
-  const kid = await Kids.findById(childID);
+  const kid = await Kids.findById(childID).lean();
   if (!kid) {
     throw { status: 404, msg: "Kid not found" };
   }
@@ -47,7 +47,7 @@ exports.updateStarKidById = async (childID, stars) => {
     childID,
     { $inc: { stars } },
     { new: true }
-  );
+  ).lean();
   if (!updtatedKid) {
     throw { status: 404, msg: "Kid not found" };
   }
@@ -58,6 +58,6 @@ exports.updateStarKidById = async (childID, stars) => {
 exports.getKidsByParentId = async (parentID) => {
   const requestToDb = {};
   requestToDb.parent_id = parentID;
-  const listKid = await Kids.find(requestToDb);
+  const listKid = await Kids.find(requestToDb).lean();
   return listKid;
 };
