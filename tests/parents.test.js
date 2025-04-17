@@ -3,14 +3,15 @@ const seed = require("../db/seed/seed");
 const data = require("../db/test_data");
 const { app } = require("../app");
 const endpointsJSon = require("../endpoints.json");
-const { connectDB, mongoose } = require("../db/connection");
+const { connectDB, mongoose, end } = require("../db/connection");
 
 beforeEach(async () => {
+  process.env.NODE_ENV = "test";
   await connectDB();
   await seed(data);
 });
-afterAll(() => {
-  return mongoose.disconnect();
+afterAll(async () => {
+  await end();
 });
 
 describe("GET /api", () => {

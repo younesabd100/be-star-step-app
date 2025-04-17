@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=production jest --runInBand",
+    "test": "NODE_ENV=test jest --runInBand",
     "start-db": "node app.js",
     "seed-test": "node ./db/seed/run_seed.js",
     "seed-prod": "NODE_ENV=production node ./db/seed/seed-prod.js",

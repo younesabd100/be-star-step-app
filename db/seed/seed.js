@@ -18,11 +18,11 @@ const {
 const { Parents, Tasks, Rewards, Kids } = require("../test_data/test.schema");
 
 const seed = async () => {
-  console.warn("Data is deleting>>>>>>>>>");
+  // console.warn("Data is deleting>>>>>>>>>");
   await Parents.deleteMany({}); //database keyword to delete many items/data if any exists.
   const parentsInsertedData = await insertedParents(parentData, parentId);
 
-  console.error("KIDS data is deleting>>>>>>>>>");
+  // console.error("KIDS data is deleting>>>>>>>>>");
   await Kids.deleteMany({});
   const kidsInsertedData = await insertedKids(
     parentsInsertedData,

@@ -1,19 +1,17 @@
 const request = require("supertest");
 const { app } = require("../app");
 const seed = require("../db/seed/seed");
-const { connectDB, mongoose } = require("../db/connection");
+const data = require("../db/test_data/index");
+const { connectDB, mongoose, end } = require("../db/connection");
 const { Rewards } = require("../db/test_data/test.schema");
 
-beforeAll(async () => {
-  await connectDB();
-});
-
 beforeEach(async () => {
-  await seed();
+  process.env.NODE_ENV = "test";
+  await connectDB();
+  await seed(data);
 });
-
-afterAll(() => {
-  return mongoose.connection.close();
+afterAll(async () => {
+  await end();
 });
 
 describe("GET /api/rewards/:reward_id", () => {
