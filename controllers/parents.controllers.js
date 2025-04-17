@@ -3,8 +3,8 @@ const { newParent, getParentById } = require("../models/parents.model");
 const postParent = (req, res) => {
   return newParent(req.body)
     .then((result) => {
-      if (!result.parentName || !result.password) {
-        return res.status(400).send({ msg: "Missing parent name or password" });
+      if (!result.parentName || !result.auth0Id) {
+        return res.status(400).send({ msg: "Missing parent name or auth0Id" });
       } else {
         res.status(201).send(result);
       }
