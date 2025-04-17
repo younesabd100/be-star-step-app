@@ -51,7 +51,7 @@ const seed = async () => {
 };
 
 async function insertedParents(parentData, parentId) {
-  const newParentData = { ...parentData, _id: parentId };
+  const newParentData = [...parentData];
 
   const insertedParentsData = await Parents.insertMany(newParentData);
   return insertedParentsData;
