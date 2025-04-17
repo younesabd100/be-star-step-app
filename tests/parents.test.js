@@ -29,13 +29,13 @@ describe("POST /api/parents", () => {
     return request(app)
       .post("/api/parents")
       .send({
-        parentName: "Testparent",
-        password: "idk",
+        parentName: "David",
+        password: "12345",
       })
       .expect(201)
       .then((res) => {
         expect(res.body).toHaveProperty("_id");
-        expect(res.body.parentName).toBe("Testparent");
+        expect(res.body.parentName).toBe("David");
       });
   });
   test("400:should return error if parentName is missing", () => {
