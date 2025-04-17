@@ -2,35 +2,29 @@ const express = require("express");
 const jwt = require("express-jwt");
 const jwksRsa = require("jwks-rsa");
 const User = require("../models/User");
+const { auth } = require("express-oauth2-jwt-bearer");
 
 const router = express.Router();
 
-const checkJwt = jwt({
-  secret: jwksRsa.expressJwtSecret({
-    cache: true,
-    rateLimit: true,
-    jwksRequestsPerMinute: 5,
-    jwksUri: `https://${process.env.AUTH0_DOMAIN}/.well-known/jwks.json`,
-  }),
+console.log("AUTH0_AUDIENCE:", process.env.AUTH0_AUDIENCE);
+console.log("AUTH0_DOMAIN:", process.env.AUTH0_DOMAIN);
+
+const checkJwt = auth({
   audience: process.env.AUTH0_AUDIENCE,
-  issuer: `https://${process.env.AUTH0_DOMAIN}/`,
-  algorithms: ["RS256"],
+  issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`,
 });
 
-router.get("/me", checkJwt, async (req, res) => {
+router.get("/me", checkJwt, async (req, res, next) => {
   try {
-    const auth0Id = req.auth.sub;
-
-    let user = await User.findOne({ auth0Id });
-
+    const auth0Id = req.auth.payload.sub;
+    // Find or create user in DB
+    const user = await User.findOne({ auth0Id });
     if (!user) {
-      user = await User.create({ auth0Id });
+      // Optionally create user
     }
-
-    res.status(200).json(user);
+    res.json(user);
   } catch (err) {
-    console.error("Error fetching user:", err);
-    res.status(500).json({ error: "Something went wrong" });
+    next(err);
   }
 });
 
