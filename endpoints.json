@@ -58,6 +58,20 @@
       }
     }
   },
+  "GET /api/kids/:parentID": {
+    "description": "Retrieves child information by parentID",
+    "queries": ["parentID"],
+    "exampleResponse": {
+      "child": {
+        "child_id": 1,
+        "name": "Rose",
+        "age": 10,
+        "avatar": "https://kollitsch.dev/blog/2025/well-known-avatar-url/imkara-visual-3blY8iC2o5M-unsplash_hu_ece1282edb68eba4.jpg",
+        "stars": 0,
+        "parent_id": [1]
+      }
+    }
+  },
   "PATCH /api/kid/:childId": {
     "description": "Updates child's number of star by childId",
     "requestBody": {

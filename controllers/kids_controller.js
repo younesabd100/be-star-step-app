@@ -37,9 +37,9 @@ exports.patchStarsKidById = async (req, res, next) => {
   }
 };
 exports.getKidByParentId = async (req, res, next) => {
-  const { parent_id } = req.params;
+  const { parentID } = req.params;
   try {
-    const kid = await getKidsByParentId(parent_id);
+    const kid = await getKidsByParentId(parentID);
 
     res.status(200).json({ kid });
   } catch (err) {
