@@ -1,18 +1,25 @@
 const { Parents } = require("../db/test_data/test.schema");
-exports.newParent = async (parentData) => {
-  
-  if (!parentData.parentName || !parentData.password) {
-    throw {
-      status: 400,
-      msg: "Missing parent name or password",
-    };
+
+// exports.newParent = async ({ parentName, auth0Id }) => {
+//   if (!parentName || !auth0Id) {
+//     throw {
+//       status: 400,
+//       msg: "Missing parent name or auth0Id",
+//     };
+//   }
+
+//   const parent = await Parents.create({ parentName, auth0Id });
+//   return parent;
+// };
+
+exports.newParent = async ({ parentName, auth0Id }) => {
+  if (!parentName || !auth0Id) {
+    throw new Error("Missing parentName or auth0Id");
   }
 
-  const parent = await Parents.create(parentData);
-  return parent;
+  return await Parent.create({ _id: auth0Id, parentName });
 };
 
-exports.getParentById = async (parentId) => {
-  const parent = await Parents.findById(parentId);
-  return parent;
+exports.getParentById = async (id) => {
+  return await Parent.findById(id);
 };
